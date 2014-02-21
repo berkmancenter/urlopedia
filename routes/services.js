@@ -4,7 +4,7 @@ request = require('request');
 
 // example of a service that takes in a url and returns json
 function url_service(url){
-  // $SERVICE_NAME + _ + value_name
+  // $SERVICE_NAME { key: value }
   return {url:url}
 }
 
@@ -13,11 +13,11 @@ function herdict_service(url){
 
   var countryReportUrl = 'http://www.herdict.org/api/reports/countries?days=365&url=' +  url;
 
-  request.get( {
+  request( {
       url: countryReportUrl,
       json: true
   }, function ( e, r, body ) {
-    if (!error && response.statusCode == 200) {
+    if (!e && response.statusCode == 200) {
       rval = JSON.parse( body );
     }
   } );
