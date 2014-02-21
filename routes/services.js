@@ -2,10 +2,9 @@ _ = require("underscore");
 request = require('request');
 Promise = require('promise');
 
-
-// example of a service that takes in a url and returns json
+// example of a service that takes in a url and returns a promise for json
 function url_service(url){
-  // $SERVICE_NAME { key: value }
+  // { SERVICE_NAME: { key: value } }
   return new Promise( function( resolve, reject ) {
     resolve( {
       url: url
