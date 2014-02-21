@@ -1,5 +1,6 @@
 _ = require("underscore");
 request = require('request');
+Promise = require('promise');
 
 
 // example of a service that takes in a url and returns json
@@ -16,13 +17,13 @@ function herdict_service(url){
 
 function wayback_machine_service(url){
   console.log('loading wayback');
-  request('http://archive.org/wayback/available?url=' +  encodeURIComponent(url), function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.log(body) // Print the google web page.
-    }
-  })
-
   var rval = {};
+  request.get({url:'http://archive.org/wayback/available?url=' +  encodeURIComponent(url), json:true}, function (error, response, body) {
+    rval["status"] = response.statusCode;
+    if (!error && response.statusCode == 200) {
+      rval = _.extend(rval,body);
+    }
+  });
   return {"wayback": rval}
 }
 
