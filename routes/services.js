@@ -6,26 +6,29 @@ Promise = require('promise');
 // example of a service that takes in a url and returns json
 function url_service(url){
   // $SERVICE_NAME { key: value }
-  return {url:url}
+  return new Promise( function( resolve, reject ) {
+    resolve( {
+      url: url
+    } );
+  } );
 }
 
-function herdict_service(url){
-  var rval = {};
+function herdict_service(url) {
+  return new Promise( function( resolve, reject ) {
+    var countryReportUrl = 'http://www.herdict.org/api/reports/countries?days=365&url=' +  url;
 
-  var countryReportUrl = 'http://www.herdict.org/api/reports/countries?days=365&url=' +  url;
-
-  request( {
-      url: countryReportUrl,
-      json: true
-  }, function ( e, r, body ) {
-    if (!e && response.statusCode == 200) {
-      rval = JSON.parse( body );
-    }
+    request( {
+        url: countryReportUrl,
+        json: true
+    }, function ( e, r, body ) {
+      if (!e && r.statusCode == 200) {
+        console.log( body );
+        resolve( {
+          herdict: body
+        } );
+      }
+    } );
   } );
-
-  return {
-    herdict: rval
-  };
 }
 
 function wayback_machine_service(url){
@@ -49,17 +52,46 @@ function validate_url(url){
 }
 
 exports.herdict = function (req, res) {
-    url = req.url.substring(req.url.indexOf('?')+1,req.url.length)
+  var url = req.url.substring(req.url.indexOf('?')+1,req.url.length);
+
+  if ( !validate_url( url ) ) {
+    res.status( 400 );
+    return;
+  }
+
+  Promise.all( [
+    url_service( url ),
+    herdict_service( url )
+  ] )
+  .then( function( result ) {
+    res.json(result);
+  } )
+  .catch(function (e) {
+    res.status( 500, {
+      error: e
+    } );
+  });
+};
+
+/*
+exports.herdict = function (req, res) {
+    var url = req.url.substring(req.url.indexOf('?')+1,req.url.length);
     rval = {};
 
     // query string validation
-    if(validate_url(url)){
+    if (validate_url( url ) ) {
       // merge the results of the url service into the results values
-      _.extend(rval, url_service(url)); 
-      _.extend(rval, herdict_service(url)); 
+      //_.extend(rval, url_service(url)); 
+
+      herdict_service(url).then( function( result ) {
+        _.extend(rval, result); 
+        res.json(rval);
+      } );
+
+      //_.extend(rval, herdict_service(url)); 
     }
-    res.json(rval);
 };
+*/
 
 
 exports.all = function (req, res) {
