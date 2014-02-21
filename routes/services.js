@@ -8,8 +8,21 @@ function url_service(url){
 
 function herdict_service(url){
   var rval = {};
-  rval["url"] = url;
-  return {"herdict": rval}
+
+  var countryReportUrl = 'http://www.herdict.org/api/reports/countries?days=365&url=' +  url;
+
+  request.get( {
+      url: countryReportUrl,
+      json: true
+  }, function ( e, r, body ) {
+    if (!error && response.statusCode == 200) {
+      rval = JSON.parse( body );
+    }
+  } );
+
+  return {
+    herdict: rval
+  };
 }
 
 // validation method
