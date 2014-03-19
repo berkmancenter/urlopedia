@@ -1,0 +1,21 @@
+body	{
+	font-family: 'Roboto', Helvetica, sans-serif;
+}
+
+#container	{
+	width: 800px;
+	margin: auto;
+}
+
+dl	{
+	margin-left: 2em;
+}
+
+code	{
+	padding: 0.5em;
+	background: #EEE;
+}
+
+.flag	{
+	background: yellow;
+}
