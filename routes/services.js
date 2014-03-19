@@ -2,6 +2,7 @@ _ = require("underscore");
 request = require('request');
 Promise = require('promise');
 WayBack = require('./WayBackService');
+MediaCloud = require('./MediaCloudService');
 Herdict = require('./HerdictService');
 Describing = require('./DescribingAMService');
 
@@ -33,12 +34,14 @@ exports.all = function (req, res) {
 
   herdict = Object.create(Herdict.HerdictService);
   wayback = Object.create(WayBack.WayBackService);
+  mediacloud = Object.create(MediaCloud.MediaCloudService);
   describing = Object.create(Describing.DescribingAMService);
 
   Promise.all( [
     url_service(url),
 //    herdict.fetch(url),
     describing.fetch(url),
+    mediacloud.fetch(url),
     wayback.fetch(url)
   ] )
   .then( function( result ) {
