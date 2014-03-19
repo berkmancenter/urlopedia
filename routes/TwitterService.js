@@ -21,14 +21,20 @@ module.exports.TwitterService = {
 
           var T = new Twit( credentials );
 
-          T.get( 'search/tweets', { q: url }, function( err, data ) {
+          T.get( 'search/tweets', { q: url, count: 100 }, function( err, data ) {
             if (err) {
               reject( {
                 error: err
               } );
             } else {
               resolve( {
-                twitter: data
+                twitter: _.map( data.statuses, function ( s ) {
+                           return {
+                             id: s.id,
+                             text: s.text,
+                             user_screen_name: s.user.screen_name
+                           };
+                         } )
               } );
             }
           } );
