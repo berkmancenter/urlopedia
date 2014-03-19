@@ -57,13 +57,16 @@
 	    </p>
 	    <ol>
 	    	<li>Sign up for an account at <a href="http://github.com">GitHub</a>.</li>
-	    	<li>Install and set up Git on your local machine (here's a handy <a href="https://help.github.com/articles/set-up-git">tutorial</a>).</li>
+	    	<li>Install and set up Git on your local machine (here's a 
+	    		handy <a href="https://help.github.com/articles/set-up-git">tutorial</a>).
+	    	</li>
 	    	<li>Clone the URLopedia repository onto your computer with this command:<br />
 					<code>git clone https://github.com/berkmancenter/urlopedia.git</code>
 				</li>
 			</ol>
 	
-			<p>The next step is to change to the cloned directory and get the dependencies we need to run URLopedia.  Once you’re inside your new local urlopedia directory, run this command:</p>
+			<p>The next step is to change to the cloned directory and get the dependencies we need to run URLopedia. 
+				Once you’re inside your new local urlopedia directory, run this command:</p>
 			<code>npm install</code>
 			
 			<p>That’s it&mdash;you’re all set up!  To run URLopedia, run this command:</p>
@@ -71,7 +74,8 @@
 			<p>(Using Linux?  Use <code>nodejs server.js</code> instead)</p>
 			
 			<p>Let’s test it to make sure it’s working.  
-				Open a web browser and go to <a href="http://localhost:3000/all?http://facebook.com">http://localhost:3000/all?http://facebook.com</a>.  
+				Open a web browser and go to 
+				<a href="http://localhost:3000/all?http://facebook.com">http://localhost:3000/all?http://facebook.com</a>.  
 				You should see something like this:
 			</p>
 			
@@ -92,11 +96,16 @@
 				<li>[TK are not included because TK]</li>
 			</ul>
 		
-			<p>Let’s say you want all of the basic information URLopedia has about Facebook.  You would add Facebook’s URL&mdash;http://facebook.com&mdash;to this basic starting point to get the following query:</p>
+			<p>Let’s say you want all of the basic information URLopedia has about Facebook.  
+				You would add Facebook’s URL&mdash;http://facebook.com&mdash;to this basic starting point 
+				to get the following query:
+			</p>
 		
 			<p><code>http://localhost:3000/all?http://facebook.com</code></p>
 		
-			<p>Maybe you only care about Herdict data for Facebook.  To filter your results down to only the information URLopedia has from Herdict, you would change your query to read:</p>
+			<p>Maybe you only care about Herdict data for Facebook.  
+				To filter your results down to only the information URLopedia has from Herdict, 
+				you would change your query to read:</p>
 		
 			<p><code>http://localhost:3000/herdict?http://facebook.com</code></p>
 			
