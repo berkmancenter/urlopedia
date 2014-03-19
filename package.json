@@ -8,7 +8,8 @@
     "jade": "*",
     "underscore":"*",
     "request":"*",
-    "promise":"*"
+    "promise":"*",
+    "mongodb":"*"
   }
 }
 
