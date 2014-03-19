@@ -54,6 +54,30 @@ exports.all = function (req, res) {
   });
 };
 
+exports.mediacloud = function (req, res) {
+  var url = req.url.substring(req.url.indexOf('?')+1,req.url.length);
+
+  if ( !validate_url( url ) ) {
+    res.status( 400 );
+    return;
+  }
+
+  mediacloud = Object.create(MediaCloud.MediaCloudService);
+
+  Promise.all( [
+    url_service(url),
+    mediacloud.fetch(url)
+  ] )
+  .then( function( result ) {
+    res.json(result);
+  } )
+  .catch(function (e) {
+    res.status( 500, {
+      error: e
+    } );
+  });
+};
+
 exports.herdict = function (req, res) {
   var url = req.url.substring(req.url.indexOf('?')+1,req.url.length);
 
