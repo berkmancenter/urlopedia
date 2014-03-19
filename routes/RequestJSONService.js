@@ -22,6 +22,8 @@ module.exports.RequestJSONService = {
                 rval = {};
                 rval[this.name]=body
                 resolve(rval);
+              } else {
+                reject( { error: e } );
               }
             }.bind(this) );
           }.bind(this) );
