@@ -37,7 +37,7 @@ exports.all = function (req, res) {
 
   Promise.all( [
     url_service(url),
-//    herdict.fetch(url),
+    herdict.fetch( url.replace( /^https?:\/\//, '' ) ),
     describing.fetch(url),
     wayback.fetch(url)
   ] )
