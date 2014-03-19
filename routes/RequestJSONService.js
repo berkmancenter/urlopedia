@@ -7,7 +7,7 @@ module.exports.RequestJSONService = {
   name: "",
 
   construct_url: function(url){
-    return this.baseUrl + url;
+    return this.baseUrl + encodeURIComponent(url);
   },
 
   fetch: function(url){
