@@ -9,6 +9,7 @@
     "underscore":"*",
     "request":"*",
     "promise":"*",
+    "mongodb":"*",
     "twit":"*"
   }
 }
