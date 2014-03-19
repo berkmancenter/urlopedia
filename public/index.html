@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="urlopedia.css" rel="stylesheet"/>
+		<link href="http://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css">
+		<title>URLopedia</title> 
+  </head>
+  
+  <body>
+  	<div id="container">
+  		<h1>URLopedia Lives!</h1>
+	    <p class="flag">Note: this is a very rough initial draft of the URLopedia user guide and will likely evolve considerably over the next few months. 
+	    	To that end, please edit/correct/augment liberally, especially in those areas labeled "<a href="http://en.wikipedia.org/wiki/To_come_(publishing)">TK</a>."
+	    </p>
+	    <p>A Uniform Resource Locator, more commonly known as a URL or web address, is how we find sites online. 
+	    	For instance, type "http://facebook.com" into a web browser. 
+	    	If everything works as intended, you’ll soon be checking out your friends’ funny cat photos. 
+	    	But what if instead of <em>visiting</em> Facebook, you want to <em>learn about</em> the site? 
+	    	For instance, where is it censored?  Is it archived in the Internet Archive’s Wayback Machine?
+	    </p>
+	    <p>It turns out that there are a lot of resources for learning about URLs. 
+	    	But it’s hard to keep track of them all!  That’s where URLopedia comes in. 
+	    	It is a very lightweight service for combining the collective knowledge we have about any given URL.  
+	    	Using publicly available APIs from a number of different services, URLopedia shows you the data we have about certain websites.  
+	    	All you need to do is enter a URL and URLopedia will do the rest, providing you with JSON objects that contain 
+	    	all of the information that we could find.
+	    </p>
+	    <p>Over the coming months URLopedia hopes to grow and add new APIs, and to make it possible to search URLs 
+	    	directly from your browser.  On this site you can see:
+	    </p>
+	    <ol>
+				<li><a href="#data">What data is in URLopedia</a></li>
+				<li><a href="#install">How to install URLopedia</a></li>
+				<li><a href="#query">How to use URLopedia</a></li>
+				<li><span class="flag">How to contribute code and/or add your data to URLopedia (TK)</span></li>
+				<li><a href="#team">The URLopedia crack team!</a></li>
+	    </ol>
+	    
+	    <h2 id="data">What data is in URLopedia?</h2>
+	    <p>Currently, URLopedia uses APIs available from the following organizations:</p>
+	    <ul>
+				<li><a href="http://describ.ing.am">Describ.ing.am</a>: <span class="flag">TK</span></a></li>
+				<li><a href="http://herdict.org">Herdict</a>: real-time censorship data</a></li>
+				<li><a href="http://mediacloud.org">Media Cloud</a>: site content analysis and mapping</a></li>
+				<li><a href="http://archive.org/web/">The Wayback Machine</a>: the Internet Archive database of cached sites</a></li>
+		  </ul>
+	    
+	    <h2 id="install">How to install URLopedia</h2>
+	    <p>URLopedia is fairly easy to install, even for someone with little familiarity with JS.  
+	    	First things first: install <a href="http://nodejs.org">node.js</a>. 
+	    	You can <a href="http://nodejs.org/download/">download</a> either the source code or an installer from the node.js website 
+	    	or install from the command line (OSX: <code>brew install node</code>, Linux: <code>sudo apt-get install nodejs npm</code>).
+	    </p>
+	    <p>You’ll need a GitHub account for the next step, which is to clone (or fork & clone) 
+	    	<a href="https://github.com/berkmancenter/urlopedia">https://github.com/berkmancenter/urlopedia</a>.  
+	    	New to GitHub?  No problem:
+	    </p>
+	    <ol>
+	    	<li>Sign up for an account at <a href="http://github.com">GitHub</a>.</li>
+	    	<li>Install and set up Git on your local machine (here's a handy <a href="https://help.github.com/articles/set-up-git">tutorial</a>).</li>
+	    	<li>Clone the URLopedia repository onto your computer with this command:<br />
+					<code>git clone https://github.com/berkmancenter/urlopedia.git</code>
+				</li>
+			</ol>
+	
+			<p>The next step is to change to the cloned directory and get the dependencies we need to run URLopedia.  Once you’re inside your new local urlopedia directory, run this command:</p>
+			<code>npm install</code>
+			
+			<p>That’s it&mdash;you’re all set up!  To run URLopedia, run this command:</p>
+			<code>node server.js</code>
+			<p>(Using Linux?  Use <code>nodejs server.js</code> instead)</p>
+			
+			<p>Let’s test it to make sure it’s working.  
+				Open a web browser and go to <a href="http://localhost:3000/all?http://facebook.com">http://localhost:3000/all?http://facebook.com</a>.  
+				You should see something like this:
+			</p>
+			
+			<p class="flag">TK (JSON results)</p>
+			
+			<p>All done? Type Ctrl-C to exit.</p>
+			
+			<h2 id="query">How to query URLopedia</h2>
+			
+			<p>The most basic search query for URLopedia starts like this:</p>
+		
+			<p><code>http://localhost:3000/all?</code></p>
+		
+			<p>A query starting with this string will return data from the following sources:</p>
+		
+			<ul class="flag">
+				<li>[TK]</li>
+				<li>[TK are not included because TK]</li>
+			</ul>
+		
+			<p>Let’s say you want all of the basic information URLopedia has about Facebook.  You would add Facebook’s URL&mdash;http://facebook.com&mdash;to this basic starting point to get the following query:</p>
+		
+			<p><code>http://localhost:3000/all?http://facebook.com</code></p>
+		
+			<p>Maybe you only care about Herdict data for Facebook.  To filter your results down to only the information URLopedia has from Herdict, you would change your query to read:</p>
+		
+			<p><code>http://localhost:3000/herdict?http://facebook.com</code></p>
+			
+			<p>A quick cheat sheet of data sources and appropriate queries:</p>
+		
+			<dl>
+				<dt>Describing.am</dt>
+					<dd><code>http://localhost:3000/describing?</code></dd>
+				<dt>Herdict</dt>
+					<dd><code>http://localhost:3000/herdict?</code></dd>
+				<dt>Media Cloud</dt>
+					<dd><code>http://localhost:3000/mediacloud?</code></dd>
+				<dt>Wayback Machine</dt>
+					<dd><code>http://localhost:3000/wayback?</code></dd>
+			</dl>
+			
+			<h2 id="team">The URLopedia team!</h2>
+			
+			<ul>
+				<li><a href="http://cyber.law.harvard.edu/rbudish">Ryan Budish</a></li>
+				<li><a href="http://www.sandsfish.com/">Sands Fish</a></li>
+				<li><a href="http://cyber.law.harvard.edu/rheacock">Rebekah Heacock</a></li>
+				<li><a href="http://cyber.law.harvard.edu/dlarochelle">David Larochelle</a></li>
+				<li><a href="http://civic.mit.edu/users/natematias">Nate Matias</a></li>
+				<li><a href="http://cyber.law.harvard.edu/rwestphal">Ryan Westphal</a></li>
+			</ul>
+			
+		</div>
+	
+  </body>
+</html>
