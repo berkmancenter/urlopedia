@@ -3,6 +3,7 @@ request = require('request');
 Promise = require('promise');
 WayBack = require('./WayBackService');
 MediaCloud = require('./MediaCloudService');
+Twitter = require('./TwitterService');
 Herdict = require('./HerdictService');
 Describing = require('./DescribingAMService');
 
@@ -43,6 +44,30 @@ exports.all = function (req, res) {
     describing.fetch(url),
     mediacloud.fetch(url),
     wayback.fetch(url)
+  ] )
+  .then( function( result ) {
+    res.json(result);
+  } )
+  .catch(function (e) {
+    res.status( 500, {
+      error: e
+    } );
+  });
+};
+
+exports.twitter = function (req, res) {
+  var url = req.url.substring(req.url.indexOf('?')+1,req.url.length);
+
+  if ( !validate_url( url ) ) {
+    res.status( 400 );
+    return;
+  }
+
+  twitter = Object.create(Twitter.TwitterService);
+
+  Promise.all( [
+    url_service(url),
+    twitter.fetch(url)
   ] )
   .then( function( result ) {
     res.json(result);
