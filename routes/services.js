@@ -6,6 +6,7 @@ MediaCloud = require('./MediaCloudService');
 Twitter = require('./TwitterService');
 Herdict = require('./HerdictService');
 Describing = require('./DescribingAMService');
+Bitly = require('./BitlyService');
 
 // validation method
 function validate_url(url){
@@ -121,6 +122,32 @@ exports.herdict = function (req, res) {
     res.json(result);
   } )
   .catch(function (e) {
+    res.status( 500, {
+      error: e
+    } );
+  });
+};
+
+exports.bitly = function (req, res) {
+  var url = req.url.substring(req.url.indexOf('?')+1,req.url.length);
+
+  if ( !validate_url( url ) ) {
+    res.status( 400 );
+    return;
+  }  
+
+  bitly = Object.create(Bitly.BitlyService);
+
+  Promise.all( [
+    url_service(url),
+    bitly.fetch(url)
+  ] )
+  .then( function( result ) {
+    res.json(result);
+  } )
+  .catch(function (e) {
+    console.log('Call to Bitly services failed.');
+
     res.status( 500, {
       error: e
     } );

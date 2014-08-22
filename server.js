@@ -29,6 +29,7 @@ app.get('/', index.view);
 app.get('/herdict', services.herdict);
 app.get('/twitter', services.twitter);
 app.get('/mediacloud', services.mediacloud);
+app.get('/bitly', services.bitly);
 app.get('/all', services.all);
 
 http.createServer(app).listen(app.get('port'), function(){

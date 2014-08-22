@@ -9,8 +9,9 @@
     "underscore":"*",
     "request":"*",
     "promise":"*",
+    "twit":"*",
     "mongodb":"*",
-    "twit":"*"
+    "node-bitlyapi":"*"
   }
 }
 
